@@ -27,5 +27,14 @@ class TestCountryInfoHandler(unittest.TestCase):
         result = Self.countryInfoHandler.get('egypt')
         Self.assertEqual({'name' : 'Egypt', 'region' : 'Africa'}, result)
 
+    def test_get_field_doesnt_exist(Self):
+        Self.countryInfoHandler = CountryInfoHandler()
+        Self.countryInfoHandler.parser = ParserStub({'info' : 'name'})
+        Self.countryInfoHandler.countryInfo = CountryInfoStub({
+            'region' : 'Africa'
+            })
+        result = Self.countryInfoHandler.get('egypt')
+        Self.assertEqual({'name' : None}, result)
+
 if __name__ == '__main__':
     unittest.main()

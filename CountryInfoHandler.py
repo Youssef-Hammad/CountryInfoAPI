@@ -8,7 +8,7 @@ class CountryInfoHandler(Resource):
         Self.countryInfo = CountryInfo()
         super().__init__()
 
-    def __get_data(Self, name, info):
+    def get_data(Self, name, info):
         data = Self.countryInfo.get(name)
         if info == None:
             return data
@@ -21,10 +21,10 @@ class CountryInfoHandler(Resource):
                 result[currentInfo] = None
         return result
 
-    def __get_info(Self):
+    def get_info(Self):
         return Self.parser.parse_args()['info']
             
     def get(Self, name):
-        info = Self.__get_info()
-        return Self.__get_data(name, info)
+        info = Self.get_info()
+        return Self.get_data(name, info)
 
