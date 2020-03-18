@@ -1,20 +1,10 @@
-from flask import Flask, request
-import requests
-import json
+from flask import Flask
+from flask_restful import Api
+from CountryInfoHandler import CountryInfoHandler
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
+api = Api(app)
 
-@app.route('/country/<name>', methods=['GET'])
-def home(name):
-    queries = request.args.get('info');
-    url = 'https://restcountries.eu/rest/v2/name/' + name
-    if queries != None:
-        queries = queries.split(',')
-        url += '?fields='
-        for n in queries:
-            url = url + n + ';'
-    r = requests.get(url)
-    return r.json()[0]
+api.add_resource(CountryInfoHandler, '/country/<name>')
 
-app.run()
+app.run(debug=True)
