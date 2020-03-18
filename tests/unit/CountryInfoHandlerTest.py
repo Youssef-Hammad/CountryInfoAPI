@@ -8,32 +8,32 @@ from CountryInfoHandler import CountryInfoHandler
 
 class TestCountryInfoHandler(unittest.TestCase):
     def test_get_field_exist(Self):
-        Self.countryInfoHandler = CountryInfoHandler()
-        Self.countryInfoHandler.parser = ParserStub({'info' : 'name'})
-        Self.countryInfoHandler.countryInfo = CountryInfoStub({
+        countryInfoHandler = CountryInfoHandler()
+        countryInfoHandler.parser = ParserStub({'info' : 'name'})
+        countryInfoHandler.countryInfo = CountryInfoStub({
             'name' : 'Egypt', 
             'region' : 'Africa'
             })
-        result = Self.countryInfoHandler.get('egypt')
+        result = countryInfoHandler.get('egypt')
         Self.assertEqual({'name' : 'Egypt'}, result)
 
     def test_get_no_info(Self):
-        Self.countryInfoHandler = CountryInfoHandler()
-        Self.countryInfoHandler.parser = ParserStub({})
-        Self.countryInfoHandler.countryInfo = CountryInfoStub({
+        countryInfoHandler = CountryInfoHandler()
+        countryInfoHandler.parser = ParserStub({'info' : None})
+        countryInfoHandler.countryInfo = CountryInfoStub({
             'name' : 'Egypt', 
             'region' : 'Africa'
             })
-        result = Self.countryInfoHandler.get('egypt')
+        result = countryInfoHandler.get('egypt')
         Self.assertEqual({'name' : 'Egypt', 'region' : 'Africa'}, result)
 
     def test_get_field_doesnt_exist(Self):
-        Self.countryInfoHandler = CountryInfoHandler()
-        Self.countryInfoHandler.parser = ParserStub({'info' : 'name'})
-        Self.countryInfoHandler.countryInfo = CountryInfoStub({
+        countryInfoHandler = CountryInfoHandler()
+        countryInfoHandler.parser = ParserStub({'info' : 'name'})
+        countryInfoHandler.countryInfo = CountryInfoStub({
             'region' : 'Africa'
             })
-        result = Self.countryInfoHandler.get('egypt')
+        result = countryInfoHandler.get('egypt')
         Self.assertEqual({'name' : None}, result)
 
 if __name__ == '__main__':
