@@ -7,4 +7,5 @@ api = Api(app)
 
 api.add_resource(CountryInfoHandler, '/country/<name>')
 
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
