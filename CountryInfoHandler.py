@@ -2,21 +2,27 @@ from CountryInfo import CountryInfo
 from flask_restful import Resource, reqparse
 
 class CountryInfoHandler(Resource):
+    def __init__(Self):
+        Self.parser = reqparse.RequestParser()
+        Self.parser.add_argument('info')
+        Self.countryInfo = CountryInfo()
+        super().__init__()
+
     def __get_data(Self, name, info):
-        countryInfo = CountryInfo()
-        data = countryInfo.get(name)
+        data = Self.countryInfo.get(name)
         if info == None:
             return data
         info = info.split(',')
         result = {}
         for currentInfo in info:
-            result[currentInfo] = data[currentInfo]
+            if currentInfo in data:
+                result[currentInfo] = data[currentInfo]
+            else:
+                result[currentInfo] = None
         return result
 
     def __get_info(Self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('info')
-        return parser.parse_args()['info']
+        return Self.parser.parse_args()['info']
             
     def get(Self, name):
         info = Self.__get_info()
