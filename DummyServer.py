@@ -13,7 +13,7 @@ class CountryInfoHandlerWithStub(CountryInfoHandler):
             info = Self.get_info()
             return Self.get_data(name, info)
         else:
-            return None
+            return {}
 
     def __init__(Self):
         super().__init__()
