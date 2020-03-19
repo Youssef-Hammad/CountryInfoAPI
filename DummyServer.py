@@ -8,6 +8,13 @@ api = Api(app)
 
 
 class CountryInfoHandlerWithStub(CountryInfoHandler):
+    def get(Self, name):
+        if name == 'egypt':
+            info = Self.get_info()
+            return Self.get_data(name, info)
+        else:
+            return None
+
     def __init__(Self):
         super().__init__()
         Self.countryInfo = CountryInfoStub({
