@@ -37,7 +37,7 @@ def test_invalid_country_name():
     url = 'http://localhost:5000/country/invalid_country?info=name,region'
     response = requests.get(url)
     assert response != None
-    assert response.json() == None
+    assert response.json() == {}
 
 
 def test_valid_country_name():
