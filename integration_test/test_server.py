@@ -36,7 +36,8 @@ def test_multiple_info_field():
 def test_invalid_country_name():
     url = 'http://localhost:5000/country/invalid_country?info=name,region'
     response = requests.get(url)
-    assert response.text == 'null\n'
+    assert response != None
+    assert response.json() == None
 
 
 def test_valid_country_name():
