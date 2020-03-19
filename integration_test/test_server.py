@@ -44,9 +44,9 @@ def test_valid_country_name():
     response = requests.get(url)
     assert response != None
     assert response.json() ==  {
-                                        "name": "Egypt",
-                                        "region": "Africa",
-                                    }
+                                    "name": "Egypt",
+                                    "region": "Africa",
+                                }
 
 def test_no_info_field():
     url = 'http://localhost:5000/country/egypt'
