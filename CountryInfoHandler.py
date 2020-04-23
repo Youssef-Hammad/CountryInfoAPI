@@ -1,6 +1,8 @@
 from CountryInfo import CountryInfo
 from flask_restful import Resource, reqparse
 
+cachedCountries = {}
+
 class CountryInfoHandler(Resource):
     def __init__(Self):
         Self.parser = reqparse.RequestParser()
@@ -9,6 +11,9 @@ class CountryInfoHandler(Resource):
         super().__init__()
 
     def get_data(Self, name, info):
+        queryHash = (name, info)
+        if queryHash in cachedCountries:
+            return cachedCountries[queryHash]
         data = Self.countryInfo.get(name)
         if data == {} or info == None:
             return data
@@ -19,6 +24,7 @@ class CountryInfoHandler(Resource):
                 result[currentInfo] = data[currentInfo]
             else:
                 result[currentInfo] = None
+        cachedCountries[queryHash] = result
         return result
 
     def get_info(Self):
