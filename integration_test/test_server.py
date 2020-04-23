@@ -1,10 +1,14 @@
-import requests
+import sys
+sys.path.append('..')
+
+from server import app
 
 def test_valid_api_call():
     url = 'http://localhost:5000/country/egypt?info=name,region,population'
-    response = requests.get(url)
+    client = app.test_client()
+    response = client.get(url)
     assert response != None
-    assert response.json() ==   {
+    assert response.json ==   {
                                     "name": "Egypt",
                                     "region": "Africa",
                                     "population": 91290000
@@ -12,48 +16,54 @@ def test_valid_api_call():
 
 def test_invalid_api_call():
     url = 'http://localhost:5000/co/egypt'
-    response = requests.get(url)
+    client = app.test_client()
+    response = client.get(url)
     assert response != None
     assert response.status_code == 404
 
 def test_one_info_field():
     url = 'http://localhost:5000/country/egypt?info=name'
-    response = requests.get(url)
+    client = app.test_client()
+    response = client.get(url)
     assert response != None
-    assert response.json() ==   {
+    assert response.json ==   {
                                     "name": "Egypt",
                                 }
 
 def test_multiple_info_field():
     url = 'http://localhost:5000/country/egypt?info=name,region'
-    response = requests.get(url)
+    client = app.test_client()
+    response = client.get(url)
     assert response != None
-    assert response.json() ==   {
+    assert response.json ==   {
                                     "name": "Egypt",
                                     "region": "Africa",
                                 } 
 
 def test_invalid_country_name():
     url = 'http://localhost:5000/country/invalid_country?info=name,region'
-    response = requests.get(url)
+    client = app.test_client()
+    response = client.get(url)
     assert response != None
-    assert response.json() == {}
+    assert response.json == {}
 
 
 def test_valid_country_name():
     url = 'http://localhost:5000/country/egypt?info=name,region'
-    response = requests.get(url)
+    client = app.test_client()
+    response = client.get(url)
     assert response != None
-    assert response.json() ==  {
+    assert response.json ==  {
                                     "name": "Egypt",
                                     "region": "Africa",
                                 }
 
 def test_no_info_field():
     url = 'http://localhost:5000/country/egypt'
-    response = requests.get(url)
+    client = app.test_client()
+    response = client.get(url)
     assert response != None
-    assert response.json() ==   {
+    assert response.json ==   {
     "name": "Egypt",
     "topLevelDomain": [
         ".eg"
