@@ -6,9 +6,13 @@ class CountryInfoHandler(Resource):
         Self.parser = reqparse.RequestParser()
         Self.parser.add_argument('info')
         Self.countryInfo = CountryInfo()
+        Self.cachedData = {}
         super().__init__()
 
     def get_data(Self, name, info):
+        requestHash = (name, info)
+        if requestHash in Self.cachedData:
+            return Self.cachedData[requestHash]
         data = Self.countryInfo.get(name)
         if data == {} or info == None:
             return data
@@ -19,6 +23,7 @@ class CountryInfoHandler(Resource):
                 result[currentInfo] = data[currentInfo]
             else:
                 result[currentInfo] = None
+        Self.cachedData[requestHash] = result
         return result
 
     def get_info(Self):
