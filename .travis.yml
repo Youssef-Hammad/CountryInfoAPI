@@ -1,5 +1,6 @@
 language: bash
 install: true
+before_script: pip install -U pytest
 script:
 - pytest unit_test/CountryInfoHandlerTest.py
 - pytest integration_test/test_server.py
