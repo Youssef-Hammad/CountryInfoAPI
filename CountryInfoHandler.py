@@ -10,7 +10,7 @@ class CountryInfoHandler(Resource):
 
     def get_data(Self, name, info):
         data = Self.countryInfo.get(name)
-        if info == None:
+        if data == {} or info == None:
             return data
         info = info.split(',')
         result = {}
