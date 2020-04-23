@@ -3,6 +3,7 @@ from flask_restful import Resource, reqparse
 
 class CountryInfoHandler(Resource):
     def __init__(Self):
+        dummy = 'BeDone'
         Self.parser = reqparse.RequestParser()
         Self.parser.add_argument('info')
         Self.countryInfo = CountryInfo()
